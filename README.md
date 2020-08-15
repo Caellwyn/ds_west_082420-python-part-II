@@ -1,15 +1,17 @@
 
 # More Python Essentials!
 
-Agenda:  
-    - Base type object Methods  
-    - F-strings  
-    - Built in Functions  
-    - List Methods  
-    - list comprehensions  
-    - Dictionary methods  
-    - While loops   
-    - Functions  
+In this notebook, we will play around with more fundamental Python tools.  We won't be able to cover everything: Python has vast abilities and many, many methods to learn.  That is one great think about programming, and data science: You will never be bored because of lack of new things to learn.
+
+Below, we will learn about
+  - Base type object methods  
+  - F-strings  
+  - Built in Functions  
+  - List Methods  
+  - list comprehensions  
+  - Dictionary methods  
+  - While loops   
+  - Functions  
 
 
 
@@ -114,7 +116,7 @@ print(f"'www.lakeviewhigh.edu/principal/{principal_last_name.lower()}/about/")
     'www.lakeviewhigh.edu/principal/bretthauer/about/
 
 
-## Individual Exercise: Turn off you camera, and take 2 minutes to work through the following problem
+## Individual Exercise: Turn off you camera, and take 4 minutes to work through the following problem
 
 You would like a list of all Chicago Public Schools in each district.  The urls for the data have an easy pattern:  
 https://www.cps.edu/schools/networks/network-1/  
@@ -216,6 +218,8 @@ print(sample_school_populations)
     899
 
 
+# Break and Continue
+
 # Nested for loops
 
 Lets imagine we have a dictionary where each key is a school district, and each value is a school population number.  
@@ -248,6 +252,17 @@ Sometimes we'll want the argument(s) of our function to have default values.
 # Practice with nested dictionaries
 
 ## Let's make a list of schools with student bodies less than 500.
+
+
+```python
+low_pop_schools = []
+
+for district in nested_schools_dict:
+    for school in nested_schools_dict[district]:
+        if nested_schools_dict[district][school] < 500:
+            low_pop_schools.append(school)
+
+```
 
 # Pair Program: A full function
 
