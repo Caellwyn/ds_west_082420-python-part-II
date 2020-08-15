@@ -1,15 +1,17 @@
 
 # More Python Essentials!
 
-Agenda:  
-    - Base type object Methods  
-    - F-strings  
-    - Built in Functions  
-    - List Methods  
-    - list comprehensions  
-    - Dictionary methods  
-    - While loops   
-    - Functions  
+In this notebook, we will play around with more fundamental Python tools.  We won't be able to cover everything: Python has vast abilities and many, many methods to learn.  That is one great think about programming, and data science: You will never be bored because of lack of new things to learn.
+
+Below, we will learn about
+  - Base type object methods  
+  - F-strings  
+  - Built in Functions  
+  - List Methods  
+  - list comprehensions  
+  - Dictionary methods  
+  - While loops   
+  - Functions  
 
 
 
@@ -28,10 +30,6 @@ if module_path not in sys.path:
     
 from src.student_caller import one_random_student
 ```
-
-    The autoreload extension is already loaded. To reload it, use:
-      %reload_ext autoreload
-
 
 
 
@@ -56,7 +54,7 @@ Question: What's the difference between `.capitalize()` and `.title()`?
 one_random_student(ds_west)
 ```
 
-    Captain Trevor
+    Bruce
 
 
 <details>
@@ -92,7 +90,15 @@ We can also use the .join() method to concatenate strings
 
 ```python
 # .join()
+[principal_title, principal_first_name, principal_last_name]
 ```
+
+
+
+
+    ['dr.', 'clark', 'breTThauer']
+
+
 
 
 ```python
@@ -158,14 +164,14 @@ f"www.lakeviewhigh.edu/principal/{}/about/""
 ```
 
 
-      File "<ipython-input-47-e64eb304cfd8>", line 1
+      File "<ipython-input-17-e64eb304cfd8>", line 1
         f"www.lakeviewhigh.edu/principal/{}/about/""
                                                     ^
     SyntaxError: EOL while scanning string literal
 
 
 
-## Individual Exercise: Turn off you camera, and take 2 minutes to work through the following problem
+## Individual Exercise: Turn off you camera, and take 4 minutes to work through the following problem
 
 You would like a list of all Chicago Public Schools in each district.  The urls for the data have an easy pattern:  
 https://www.cps.edu/schools/networks/network-1/  
@@ -183,7 +189,7 @@ for i in <fill_in>:
 ```
 
 
-      File "<ipython-input-49-91db1d5da457>", line 1
+      File "<ipython-input-21-91db1d5da457>", line 1
         for i in <fill_in>:
                  ^
     SyntaxError: invalid syntax
@@ -450,7 +456,7 @@ zip(district_2, student_count)
 
 
 
-    <zip at 0x106a5cf48>
+    <zip at 0x107d9d108>
 
 
 
@@ -490,20 +496,33 @@ Suppose I need to choose a certain number of schools (say 10) from  a list.  I c
 one_random_student(ds_west)
 ```
 
-    Captain Trevor
+    Mitsy
 
 
 
 ```python
 school_count = 0
 
-while school_count <= 10:
+while school_count < 10:
+    dist_4_schools = schools[4]
+    print(dist_4_schools[school_count])
+    
     school_count += 1
 
 print(school_count)
 ```
 
-    11
+    ALCOTT ES
+    AUDUBON
+    AVONDALE-LOGANDALE
+    BARRY
+    BELL
+    BLAINE
+    BRENTANO
+    CHASE
+    DARWIN
+    FRANKLIN
+    10
 
 
 
@@ -537,7 +556,60 @@ How can we update the code to stop before 1000?
 one_random_student(ds_west)
 ```
 
-    Captain Trevor
+    Mitsy
+
+
+# Break and Continue
+
+
+```python
+school_count = 0
+
+while school_count < 10:
+    dist_4_schools = schools[4]
+    
+    
+    
+    if dist_4_schools[school_count][0] == 'B':
+        break
+        
+    print(dist_4_schools[school_count])
+    
+    school_count += 1
+
+print(school_count)
+```
+
+    ALCOTT ES
+    AUDUBON
+    AVONDALE-LOGANDALE
+    3
+
+
+
+```python
+school_count = 0
+
+while school_count < 10:
+    dist_4_schools = schools[4]
+    
+    if dist_4_schools[school_count][0] == 'B':
+        school_count += 1
+        continue
+        
+    print(dist_4_schools[school_count])
+    
+    school_count += 1
+
+
+```
+
+    ALCOTT ES
+    AUDUBON
+    AVONDALE-LOGANDALE
+    CHASE
+    DARWIN
+    FRANKLIN
 
 
 # Nested for loops
@@ -761,13 +833,16 @@ nested_schools_dict[1]
 
 
 ```python
-low_pop_schools = []
+### Round Robin
+one_random_student(ds_west)
+```
 
-for district in nested_schools_dict:
-    for school in nested_schools_dict[district]:
-        if nested_schools_dict[district][school] < 500:
-            low_pop_schools.append(school)
+    Bruce
 
+
+
+```python
+# Your code here
 ```
 
 # Pair Program: A full function
