@@ -1,11 +1,47 @@
 
 # More Python Essentials!
 
+Agenda:  
+    - Base type object Methods  
+    - F-strings  
+    - Built in Functions  
+    - List Methods  
+    - list comprehensions  
+    - Dictionary methods  
+    - While loops   
+    - Functions  
+
+
+
+```python
+ds_west = ['Mitsy', 'Captain Trevor', 'Bruce' ]
+
+# This is always a good idea
+%load_ext autoreload
+%autoreload 2
+            
+import os
+import sys
+module_path = os.path.abspath(os.path.join(os.pardir, os.pardir))
+if module_path not in sys.path:
+    sys.path.append(module_path)
+    
+from src.student_caller import one_random_student
+```
+
+    The autoreload extension is already loaded. To reload it, use:
+      %reload_ext autoreload
+
+
+
+
 ## Methods
 
 A method is a function that belongs to an object. And in Python, most things are objects! Naturally, the methods that belong to a particular object can vary depending on the object's datatype.
 
 ### String Methods
+
+Strings will show up constantly.  Most datasets we encounter will have some sort of strings.  And they can be messy.  Luckily, we have objects associated with our strings that help us get them into suitable, consistent form.
 
 Here are some useful methods for strings:
 
@@ -14,6 +50,14 @@ Here are some useful methods for strings:
 - ```.capitalize()```: makes the first letter of a string a capital
 
 Question: What's the difference between `.capitalize()` and `.title()`?
+
+
+```python
+one_random_student(ds_west)
+```
+
+    Captain Trevor
+
 
 <details>
     <summary>
@@ -25,53 +69,126 @@ Question: What's the difference between `.capitalize()` and `.title()`?
 
 
 ```python
-first_name = 'greg'
-last_name = 'damico'
+principal_first_name = 'clark'
+principal_middle_initial = 'm'
+principal_last_name = 'breTThauer'
+principal_title = 'dr.'
 ```
 
 
 ```python
-# .capitalize()
-
-
+# .lower()
 ```
 
 
 ```python
 # .title()
-
-
 ```
 
 Notice that '+' is used to concatenate strings!
 
+We can also use the .join() method to concatenate strings
+
 
 ```python
 # .join()
-
-'oo'.join('GREG')
 ```
 
 
 ```python
-''.join(name[0] for name in [first_name, last_name])
+''.join(name[0].upper() for name in [principal_first_name, principal_middle_initial, principal_last_name])
 ```
+
+
+
+
+    'CMB'
+
+
+
+## Built-In Functions
+
+Many useful functions are already built into Python:
+
+- ```print()```: print the given string or variable's value
+- ```type()```: returns the datatype of the argument
+- ```len()```: returns the length of an array
+- ```sum()```: returns the sum of the array's values
+- ```min()```: returns the smallest member of an array
+- ```max()```: returns the largest member of an array
+- ```str()```: converts the variable from its current type to a string
+- ```range()```: returns an iterable that allows looping through a set of numbers
 
 
 ```python
-' < '.join(str(num) for num in range(1, 6))
+' + '.join(str(num) for num in range(1, 6))
 ```
+
+
+
+
+    '1 + 2 + 3 + 4 + 5'
+
+
 
 #### f-Strings
 
 f-Strings are a convenient way to bring variables into strings.
 
+Consider the scenario where you want to get data of every principal in a school district.  You have a list of last names, and you know the pattern of a url.  
+`www.lakeviewhigh.edu/principal/<principal_last_name>/about/`
+
 
 ```python
-fav_num = 42
-adj = 'greatest'
-print(f"I love {fav_num}. It's the {adj}!")
+principal_last_name
 ```
+
+
+
+
+    'breTThauer'
+
+
+
+We can use an f-string to interpolate the last name into the url. We insert the variable, which has to be a **string** into the curly braces.
+
+
+```python
+f"www.lakeviewhigh.edu/principal/{}/about/""
+```
+
+
+      File "<ipython-input-47-e64eb304cfd8>", line 1
+        f"www.lakeviewhigh.edu/principal/{}/about/""
+                                                    ^
+    SyntaxError: EOL while scanning string literal
+
+
+
+## Individual Exercise: Turn off you camera, and take 2 minutes to work through the following problem
+
+You would like a list of all Chicago Public Schools in each district.  The urls for the data have an easy pattern:  
+https://www.cps.edu/schools/networks/network-1/  
+https://www.cps.edu/schools/networks/network-2/  
+
+The numbers before the final forward slash increase consecutively. 
+The **objective** is to print out a list of all of the network urls with an f-string.
+
+Hint: You will have to fill in the code below with two built in methods from above.
+
+
+```python
+for i in <fill_in>:
+    print(f"https://www.cps.edu/schools/networks/network-{<fill_in>}/")
+```
+
+
+      File "<ipython-input-49-91db1d5da457>", line 1
+        for i in <fill_in>:
+                 ^
+    SyntaxError: invalid syntax
+
+
 
 ### List Methods
 
@@ -94,10 +211,28 @@ Question: What's the difference between ```.remove()``` and ```del```?
 
 
 ```python
-list_1 = [1, 2, 4]
+import pickle
 
-list_2 = [8, 16]
+with open('./data/school_dict.p', 'rb') as read_file:
+    schools = pickle.load(read_file)
 ```
+
+
+```python
+district_1 = schools[1][:5]
+district_2 = schools[2][:5]
+
+```
+
+
+```python
+print(district_1)
+print(district_2)
+```
+
+    ['ALBANY PARK', 'BATEMAN', 'BEARD', 'BEAUBIEN', 'BELDING']
+    ['BOONE', 'BRENNEMANN', 'CLINTON', 'COURTENAY', 'DECATUR']
+
 
 
 ```python
@@ -105,76 +240,140 @@ list_2 = [8, 16]
 
 # Note that this alters list_1!
 
-
-list_1.extend(list_2)
-list_1
+print(len(district_1))
+district_1.extend(district_2)
+len(district_1)
 ```
+
+    5
+
+
+
+
+
+    10
+
+
 
 
 ```python
 # What would this code return?
 
-list_1.append(list_2)
+district_1.append(district_2)
 ```
 
 
 ```python
-# Let's write a loop that will build a list of the characters of the
-# string: 'supercalifragilisticexpialidocious'
+# Let's write a loop that will build a list of the characters of the all of the letters in district_2
 
-word = 'supercalifragilisticexpialidocious'
-char_list = []
+school_salad = ''.join(district_2)
+school_salad
 
 
 ```
+
+
+
+
+    'BOONEBRENNEMANNCLINTONCOURTENAYDECATUR'
+
+
 
 
 ```python
 # What does list(word) do?
 
-list(word)
+list(school_salad)
 ```
+
+
+
+
+    ['B',
+     'O',
+     'O',
+     'N',
+     'E',
+     'B',
+     'R',
+     'E',
+     'N',
+     'N',
+     'E',
+     'M',
+     'A',
+     'N',
+     'N',
+     'C',
+     'L',
+     'I',
+     'N',
+     'T',
+     'O',
+     'N',
+     'C',
+     'O',
+     'U',
+     'R',
+     'T',
+     'E',
+     'N',
+     'A',
+     'Y',
+     'D',
+     'E',
+     'C',
+     'A',
+     'T',
+     'U',
+     'R']
+
+
 
 
 ```python
-list_1.pop()
+district_2.pop()
 
 # What does this return?
-# What does list_1 look like now?
+# What does district_2 look like now?
 
 
 ```
+
+
+
+
+    'DECATUR'
+
+
 
 ### List Comprehension
 
 List comprehension is a handy way of generating a new list from existing lists.
 
-Suppose I start with a simple list.
+Suppose I want the district in the school names.
 
 
-```python
-primes = [2, 3, 5, 7, 11, 13, 17, 19]
-```
-
-What I want now to do is to build a new list that comprises doubles of primes. I can do this with list comprehension!
+I can do this with list comprehension!
 
 The syntax is: ```[ f(x) for x in [original list] ]```
 
 
 ```python
-prime_doubles = [x*2 for x in primes]
-prime_triples = [x*3 for x in primes]
+school_district_names = [school_name + '_2' for school_name in district_2]
 ```
 
 
 ```python
-prime_doubles
+school_district_names
 ```
 
 
-```python
-print([x + 'hello' for x in word])
-```
+
+
+    ['BOONE_2', 'BRENNEMANN_2', 'CLINTON_2', 'COURTENAY_2']
+
+
 
 ### Dictionary Methods
 
@@ -186,8 +385,15 @@ Here are some useful methods for dictionaries:
 
 
 ```python
-zoo = {1: 'giraffe', 2: 'elephant', 3: 'monkey'}
+type(schools)
 ```
+
+
+
+
+    dict
+
+
 
 
 ```python
@@ -195,24 +401,29 @@ zoo = {1: 'giraffe', 2: 'elephant', 3: 'monkey'}
 
 # Use the .values() method to print the values of this dictionary!
 
-
-for item in zoo.items():
-    print(item[0])
+for item in schools.items():
+    print(item[0], item[1][0])
     
 
 ```
 
-#### Dictionary Comprehension
+    1 ALBANY PARK
+    2 BOONE
+    3 BRUNSON
+    4 ALCOTT ES
+    5 BEIDLER
+    6 ARMOUR
+    7 COOPER
+    8 BRIGHTON PARK
+    9 ARIEL
+    10 ASHBURN
+    11 BARTON
+    12 ASHE
+    13 ALDRIDGE
+    14 DEVRY HS
+    15 ALCOTT HS
+    16 AIR FORCE HS
 
-
-```python
-{k: v + ' monkeys' for k, v in zoo.items()}
-```
-
-
-```python
-{k**2: v**2 for k, v in [(0, 1), (2, 3), (4, 5)]}
-```
 
 ## Zipping
 
@@ -220,70 +431,154 @@ Zipping is a way of merging two arrays into one. The result can be cast as a lis
 
 
 ```python
-zip(primes, prime_doubles)
+student_count = [197, 102, 105, 162]
+district_2
 ```
+
+
+
+
+    ['BOONE', 'BRENNEMANN', 'CLINTON', 'COURTENAY']
+
+
 
 
 ```python
-dict(zip(primes, prime_doubles))
+zip(district_2, student_count)
 ```
 
-## Built-In Functions
 
-Many useful functions are already built into Python:
 
-- ```print()```: print the given string or variable's value
-- ```type()```: returns the datatype of the argument
-- ```len()```: returns the length of an array
-- ```sum()```: returns the sum of the array's values
-- ```min()```: returns the smallest member of an array
-- ```max()```: returns the largest member of an array
+
+    <zip at 0x106a5cf48>
+
+
 
 
 ```python
-# What will this return?
-
-max(6, 9, 7)
+for school, count in zip(district_2, student_count):
+    print(school, count)
 ```
+
+    BOONE 197
+    BRENNEMANN 102
+    CLINTON 105
+    COURTENAY 162
+
+
+
+```python
+dict(zip(district_2,student_count))
+```
+
+
+
+
+    {'BOONE': 197, 'BRENNEMANN': 102, 'CLINTON': 105, 'COURTENAY': 162}
+
+
 
 ## While Loops
 
 We have already seen 'for'-loops, where you use a loop and count the iterations by the some pre-specified number. But sometimes we don't know how many times we'll need to iterate!
 
-Suppose I want to build a program that will take in a whole number and then tell me how many times 2 divides that number evenly. So e.g. 2 divides 4 twice but 10 only once (and 1536 nine times).
-
-A good first start is to take the input number and start dividing by 2. But when do I stop? Answer: When I reach an odd number!
+Suppose I need to choose a certain number of schools (say 10) from  a list.  I can set a variable as a counter, and create a while loop which will add 1 to that counter with each pass through the loop.
 
 
 ```python
-# Let's code it!
-
-
-
-
+# What will the print statement below print out?
+one_random_student(ds_west)
 ```
 
-## Nested Loops and List Comprehensions
+    Captain Trevor
 
-We can put loops inside of other loops and list comprehensions inside of other list comprehensions. These come in handy especially when we have arrays inside of other arrays.
 
 
 ```python
-phone_nos = [{'name': 'greg', 'nums': {'home': 1234567, 'work': 7654321}},
-          {'name': 'max', 'nums': {'home': 9876543, 'work': 1010001}},
-            {'name': 'erin', 'nums': {'home': 3333333, 'work': 4444444}},
-            {'name': 'joél', 'nums': {'home': 2222222, 'work': 5555555}},
-            {'name': 'ben', 'nums': {'home': 9999999, 'work': 8888888}}]
+school_count = 0
+
+while school_count <= 10:
+    school_count += 1
+
+print(school_count)
+```
+
+    11
+
+
+
+```python
+district_3_schools = schools[3]
+district_3_pops = [129,107,167,103,111,137,145,
+ 107,198,183,132,100,120,162,
+ 116,146,137]
+
 ```
 
 
 ```python
-# Exercise: from the above list, make a list of dictionaries where the key
-# is the person's name and the value is the person's home phone number.
+sample_school_populations = 0
+school_index = 0
 
+while sample_school_populations < 1000:
+    sample_school_populations += district_3_pops[school_index]
+    school_index+=1
 
-
+print(sample_school_populations)
 ```
+
+    1006
+
+
+How can we update the code to stop before 1000?
+
+
+```python
+one_random_student(ds_west)
+```
+
+    Captain Trevor
+
+
+# Nested for loops
+
+Lets imagine we have a dictionary where each key is a school district, and each value is a school population number.  
+
+
+```python
+with open('./data/school_pop_dict.p', 'rb') as read_file:
+    school_pop_dict = pickle.load(read_file)
+```
+
+Let's iterate through the districts, add up the school populations, and print out the total populations in each district
+
+
+
+```python
+for district in school_pop_dict:
+    district_population = 0
+    for pop in school_pop_dict[district]:
+        district_population += pop
+    print(district, district_population)
+```
+
+    1 19251
+    2 12011
+    3 7334
+    4 16177
+    5 15301
+    6 13163
+    7 10489
+    8 11525
+    9 11925
+    10 17828
+    11 15426
+    12 16208
+    13 16983
+    14 10428
+    15 13406
+    16 10128
+
 
 ## Functions
 
@@ -297,14 +592,24 @@ The first line will read:
 
 Any arguments to the function will go in the parentheses.
 
-Let's try building a function that will automate our task of finding all the factors of 2 of a given number!
+Let's try building a function to get the schools in a district
 
 
 ```python
 # Let's code it!
-
-
-
+def district_schools(dist_num, schools_dictionary):
+    
+    '''
+    parameters
+    dist_num: The number of the school district to be used as a dicitonary key in schools_dictionary
+    schools_dictionary: ad dictionary with keys equal to school districts and values equal to school names
+    
+    returns:
+    a list of schools for the given district number
+    '''
+    print(dist_num)
+    
+    return schools_dictionary[dist_num]
 
 ```
 
@@ -315,8 +620,35 @@ To _call_ a function, simply type its name, along with any necessary arguments i
 
 ```python
 # Let's call it!
-
+district_schools(3,schools)
 ```
+
+    3
+
+
+
+
+
+    ['BRUNSON',
+     'BURBANK',
+     'DEPRIEST',
+     'ELLINGTON',
+     'FALCONER',
+     'HANSON PARK',
+     'HAY',
+     'LELAND',
+     'LOCKE J',
+     'LOVETT',
+     'LYON',
+     'NASH',
+     'NORTHWEST',
+     'PRIETO',
+     'SAYRE',
+     'SCHUBERT',
+     'SPENCER',
+     'YOUNG ES']
+
+
 
 ### Default Argument Values
 
@@ -324,23 +656,147 @@ Sometimes we'll want the argument(s) of our function to have default values.
 
 
 ```python
-def cheers(person='aaron', job='data scientist', age=30):
-    return f'Hooray for {person}. You\'re a {job} and you\'re {str(age)}!'
+def district_schools(dist_num, schools_dictionary=schools):
+    
+    '''
+    parameters
+    dist_num: The number of the school district to be used as a dicitonary key in schools_dictionary
+    schools_dictionary: ad dictionary with keys equal to school districts and values equal to school names
+    
+    returns:
+    a list of schools for the given district number
+    '''
+    print(dist_num)
+    return schools_dictionary[dist_num]
 ```
 
 
 ```python
-cheers('greg', 'scientist', 80)
+district_schools(2)
+```
+
+    2
+
+
+
+
+
+    ['BOONE',
+     'BRENNEMANN',
+     'CLINTON',
+     'COURTENAY',
+     'DECATUR',
+     'DISNEY',
+     'FIELD',
+     'GALE',
+     'HAYT',
+     'JAMIESON',
+     'JORDAN',
+     'KILMER',
+     'MCCUTCHEON',
+     'MCPHERSON',
+     'NEW FIELD',
+     'RAVENSWOOD',
+     'STONE',
+     'SWIFT',
+     'WATERS']
+
+
+
+# Practice with nested dictionaries
+
+
+```python
+with open('./data/nested_schools_dict.p', 'rb') as read_file:
+    nested_schools_dict = pickle.load(read_file)
 ```
 
 
 ```python
-cheers('cristian', 'git enthusiast', 93)
+nested_schools_dict[1]
 ```
 
 
+
+
+    {'ALBANY PARK': 922,
+     'BATEMAN': 714,
+     'BEARD': 774,
+     'BEAUBIEN': 986,
+     'BELDING': 874,
+     'BRIDGE': 355,
+     'CANTY': 289,
+     'CLEVELAND': 645,
+     'DEVER': 461,
+     'DIRKSEN': 562,
+     'EDGEBROOK': 892,
+     'EDISON': 172,
+     'EDISON PARK': 956,
+     'FARNSWORTH': 250,
+     'GARVY': 160,
+     'GRAY': 721,
+     'HAUGAN': 626,
+     'HENRY': 713,
+     'HIBBARD': 523,
+     'HITCH': 480,
+     'MURPHY': 987,
+     'NORTH RIVER': 911,
+     'NORWOOD PARK': 684,
+     'ONAHAN': 148,
+     'ORIOLE PARK': 502,
+     'PETERSON': 928,
+     'PORTAGE PARK': 706,
+     'PRUSSING': 273,
+     'REINBERG': 908,
+     'SAUGANASH': 576,
+     'SCAMMON': 737,
+     'SOLOMON': 413,
+     'STOCK': 934,
+     'VOLTA': 552,
+     'WILDWOOD': 956}
+
+
+
+## Let's make a list of schools with student bodies less than 500.
+
+
 ```python
-cheers()
+low_pop_schools = []
+
+for district in nested_schools_dict:
+    for school in nested_schools_dict[district]:
+        if nested_schools_dict[district][school] < 500:
+            low_pop_schools.append(school)
+
+```
+
+# Pair Program: A full function
+
+Create a function that has two parameters:  
+  - district  
+  - the nested_schools_dict dictionary  
+    
+The function should do two things.  
+  - Return a dictionary of all schools with a student body less than 500. The keys are the school names, the values are the school pops.  
+  - Print a statement that reads "<school_name> has <x_number> of students". Use an f-string for the print statement.
+
+
+```python
+def low_pop_schools():
+    """
+    paramaters:
+    district: a school district to be used as a key in the nested school dictionary
+    schools: a nested dictionary with each district as a key, paired with a dictionary of school names and school pops
+    
+    returns:
+    low_pop_schools: a dictionary of schools with populations under 500 
+    with school name as keys and school populations as values
+    """
+    
+    low_pop_schools = {}
+    # Your code here
+    
+    return low_pop_schools
 ```
 
 ## Exercises:
