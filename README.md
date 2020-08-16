@@ -3,20 +3,23 @@
 
 In this notebook, we will play around with more fundamental Python tools.  We won't be able to cover everything: Python has vast abilities and many, many methods to learn.  That is one great think about programming, and data science: You will never be bored because of lack of new things to learn.
 
+
 Below, we will learn about
   - Base type object methods  
-  - F-strings  
   - Built in Functions  
+  - F-strings  
   - List Methods  
   - list comprehensions  
   - Dictionary methods  
   - While loops   
   - Functions  
+  
+We will begin to use some real data from Chicago public schools. (The student body counts are randomly created, but the districts and the school names are accurate).
 
 
 
 
-## Methods
+## Base Type Object Methods
 
 A method is a function that belongs to an object. And in Python, most things are objects! Naturally, the methods that belong to a particular object can vary depending on the object's datatype.
 
@@ -47,26 +50,12 @@ principal_last_name.lower()
 ```
 
 
-
-
-    'bretthauer'
-
-
-
-
 ```python
 # .title()
 full_name = principal_title + " " + principal_first_name + " " + principal_last_name
 full_name.title()
 
 ```
-
-
-
-
-    'Dr. Clark Bretthauer'
-
-
 
 Notice that '+' is used to concatenate strings!
 
@@ -78,13 +67,6 @@ We can also use the .join() method to concatenate strings
 
 ' '.join([principal_title, principal_first_name, principal_last_name]).title()
 ```
-
-
-
-
-    'Dr. Clark Bretthauer'
-
-
 
 ## Built-In Functions
 
@@ -113,9 +95,6 @@ We can use an f-string to interpolate the last name into the url. We insert the 
 print(f"'www.lakeviewhigh.edu/principal/{principal_last_name.lower()}/about/")
 ```
 
-    'www.lakeviewhigh.edu/principal/bretthauer/about/
-
-
 ## Individual Exercise: Turn off you camera, and take 4 minutes to work through the following problem
 
 You would like a list of all Chicago Public Schools in each district.  The urls for the data have an easy pattern:  
@@ -134,24 +113,6 @@ for i in range(1,17):
 
 
 ```
-
-    https://www.cps.edu/schools/networks/network-1/
-    https://www.cps.edu/schools/networks/network-2/
-    https://www.cps.edu/schools/networks/network-3/
-    https://www.cps.edu/schools/networks/network-4/
-    https://www.cps.edu/schools/networks/network-5/
-    https://www.cps.edu/schools/networks/network-6/
-    https://www.cps.edu/schools/networks/network-7/
-    https://www.cps.edu/schools/networks/network-8/
-    https://www.cps.edu/schools/networks/network-9/
-    https://www.cps.edu/schools/networks/network-10/
-    https://www.cps.edu/schools/networks/network-11/
-    https://www.cps.edu/schools/networks/network-12/
-    https://www.cps.edu/schools/networks/network-13/
-    https://www.cps.edu/schools/networks/network-14/
-    https://www.cps.edu/schools/networks/network-15/
-    https://www.cps.edu/schools/networks/network-16/
-
 
 ### List Methods
 
@@ -214,9 +175,6 @@ while sample_school_populations + district_3_pops[school_index]  < 1000:
 
 print(sample_school_populations)
 ```
-
-    899
-
 
 # Break and Continue
 
