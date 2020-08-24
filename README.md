@@ -9,19 +9,17 @@ Below, we will learn about
   - Built in Functions  
   - F-strings  
   - List Methods  
-  - list comprehensions  
+  - List comprehensions  
   - Dictionary methods  
   - While loops   
   - Functions  
   
-We will begin to use some real data from Chicago public schools. (The student body counts are randomly created, but the districts and the school names are accurate).
-
-
+We will begin to use some real data from Chicago public schools. (The student body counts that are found at the bottom of the notebook are randomly created, but the districts and the school names are accurate).
 
 
 ## Base Type Object Methods
 
-A method is a function that belongs to an object. And in Python, most things are objects! Naturally, the methods that belong to a particular object can vary depending on the object's datatype.
+A method is a function that belongs to an object. And in Python, everyting is an object! Naturally, the methods that belong to a particular object can vary depending on the object's datatype.
 
 ### String Methods
 
@@ -43,11 +41,15 @@ Question: What's the difference between `.capitalize()` and `.title()`?
         .title() capitalizes the first letter and each letter after a space
     </details>
 
+There are some odd capitalizations in the principal's last name. Let's fix them.
+
 
 ```python
 # .lower()
 principal_last_name.lower()
 ```
+
+Let's create a string representing the principal's full name and title, with correct capitalization.
 
 
 ```python
@@ -68,6 +70,8 @@ We can also use the .join() method to concatenate strings
 ' '.join([principal_title, principal_first_name, principal_last_name]).title()
 ```
 
+Here is a trick using a list comprehension (see below) to get the principal's initials.  
+
 ## Built-In Functions
 
 Many useful functions are already built into Python:
@@ -81,9 +85,18 @@ Many useful functions are already built into Python:
 - ```str()```: converts the variable from its current type to a string
 - ```range()```: returns an iterable that allows looping through a set of numbers
 
+Here is a list of the [built-in functions](https://docs.python.org/3/library/functions.htmlhttps://docs.python.org/3/library/functions.html)
+
+You are no doubt already familiar with at least one of the built in functions (print) but you probably haven't given it much thought.  It is a fundamental tool that comes built in with Python, with a prescribed set of behaviors assigned to it.  These behaviors can be overwritten, but that is not a good idea.  
+
+If we assign a string to the variable print, we overwrite the print's expected behavior in memory.  In order to retrieve print's original functionality, we need to restart our kernal.  
+
+
+Two built in functions are used below to create a string representing the sum of the numbers 1 through 5
+
 #### f-Strings
 
-f-Strings are a convenient way to bring variables into strings.
+f-Strings are a convenient way to bring variables into strings.  F-strings have numerous applications, from webscraping to SQL queries to writing the R-like formulas we will see in Phase 2.
 
 Consider the scenario where you want to get data of every principal in a school district.  You have a list of last names, and you know the pattern of a url.  
 `www.lakeviewhigh.edu/principal/<principal_last_name>/about/`
@@ -132,6 +145,17 @@ Question: What's the difference between ```.remove()``` and ```del```?
     </summary>
     .remove() removes an element by value;<br/>
     del removes an element by position
+
+Let's read in an object which contains Chicago Public School districts and the schools associated with them. 
+
+The object schools is a dictionary, with a list associated with a district number.  Let's isolate district 1 and 2, and practice list methods with the first 5 schools in each list.
+
+
+```python
+print(len(district_2))
+district_2.extend(district_1)
+len(district_2)
+```
 
 ### List Comprehension
 
@@ -209,6 +233,8 @@ Sometimes we'll want the argument(s) of our function to have default values.
 
 # Practice with nested dictionaries
 
+The object below is a dictionary with keys which represent a school district. The values associated with the keys are themselves dictionaries, whose keys are school names, and values are school populations.
+
 ## Let's make a list of schools with student bodies less than 500.
 
 
@@ -220,6 +246,7 @@ for district in nested_schools_dict:
         if nested_schools_dict[district][school] < 500:
             low_pop_schools.append(school)
 
+print(low_pop_schools)
 ```
 
 # Pair Program: A full function
@@ -247,7 +274,8 @@ def low_pop_schools(district, schools=nested_schools_dict):
 
 ```
 
-## Exercises:
+## Practice Exercises:
+Here are a few exercises to do on your own time to practice building functions.
 
 1. Build a function that will take an input string and add '-totally' to the end of it.
 
