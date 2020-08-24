@@ -9,17 +9,16 @@ Below, we will learn about
   - Built in Functions  
   - F-strings  
   - List Methods  
-  - list comprehensions  
+  - List comprehensions  
   - Dictionary methods  
   - While loops   
   - Functions  
   
-We will begin to use some real data from Chicago public schools. (The student body counts are randomly created, but the districts and the school names are accurate).
+We will begin to use some real data from Chicago public schools. (The student body counts that are found at the bottom of the notebook are randomly created, but the districts and the school names are accurate).
 
 
 
 ```python
-ds_west = ['Mitsy', 'Captain Trevor', 'Bruce' ]
 
 # This is always a good idea
 %load_ext autoreload
@@ -32,13 +31,13 @@ if module_path not in sys.path:
     sys.path.append(module_path)
     
 from src.student_caller import one_random_student
+from src.student_list import student_first_names
+ds_west = student_first_names
 ```
-
-
 
 ## Base Type Object Methods
 
-A method is a function that belongs to an object. And in Python, most things are objects! Naturally, the methods that belong to a particular object can vary depending on the object's datatype.
+A method is a function that belongs to an object. And in Python, everyting is an object! Naturally, the methods that belong to a particular object can vary depending on the object's datatype.
 
 ### String Methods
 
@@ -73,6 +72,8 @@ principal_last_name = 'breTThauer'
 principal_title = 'dr.'
 ```
 
+There are some odd capitalizations in the principal's last name. Let's fix them.
+
 
 ```python
 # .lower()
@@ -84,6 +85,8 @@ principal_title = 'dr.'
 # .lower()
 principal_last_name.lower()
 ```
+
+Let's create a string representing the principal's full name and title, with correct capitalization.
 
 
 ```python
@@ -117,9 +120,14 @@ We can also use the .join() method to concatenate strings
 ' '.join([principal_title, principal_first_name, principal_last_name]).title()
 ```
 
+Here is a trick using a list comprehension (see below) to get the principal's initials.  
+
 
 ```python
-''.join(name[0].upper() for name in [principal_first_name, principal_middle_initial, principal_last_name])
+''.join(name[0].upper() for name in [principal_first_name, 
+                                     principal_middle_initial, 
+                                     principal_last_name]
+       )
 ```
 
 ## Built-In Functions
@@ -135,6 +143,31 @@ Many useful functions are already built into Python:
 - ```str()```: converts the variable from its current type to a string
 - ```range()```: returns an iterable that allows looping through a set of numbers
 
+Here is a list of the [built-in functions](https://docs.python.org/3/library/functions.htmlhttps://docs.python.org/3/library/functions.html)
+
+You are no doubt already familiar with at least one of the built in functions (print) but you probably haven't given it much thought.  It is a fundamental tool that comes built in with Python, with a prescribed set of behaviors assigned to it.  These behaviors can be overwritten, but that is not a good idea.  
+
+
+```python
+# print = 'A bad idea'
+# print
+```
+
+
+```python
+# print(print)
+```
+
+
+```python
+print('After the kernal has restarted, this will work again')
+```
+
+If we assign a string to the variable print, we overwrite the print's expected behavior in memory.  In order to retrieve print's original functionality, we need to restart our kernal.  
+
+
+Two built in functions are used below to create a string representing the sum of the numbers 1 through 5
+
 
 ```python
 ' + '.join(str(num) for num in range(1, 6))
@@ -142,7 +175,7 @@ Many useful functions are already built into Python:
 
 #### f-Strings
 
-f-Strings are a convenient way to bring variables into strings.
+f-Strings are a convenient way to bring variables into strings.  F-strings have numerous applications, from webscraping to SQL queries to writing the R-like formulas we will see in Phase 2.
 
 Consider the scenario where you want to get data of every principal in a school district.  You have a list of last names, and you know the pattern of a url.  
 `www.lakeviewhigh.edu/principal/<principal_last_name>/about/`
@@ -210,6 +243,8 @@ Question: What's the difference between ```.remove()``` and ```del```?
     .remove() removes an element by value;<br/>
     del removes an element by position
 
+Let's read in an object which contains Chicago Public School districts and the schools associated with them. 
+
 
 ```python
 import pickle
@@ -217,6 +252,8 @@ import pickle
 with open('./data/school_dict.p', 'rb') as read_file:
     schools = pickle.load(read_file)
 ```
+
+The object schools is a dictionary, with a list associated with a district number.  Let's isolate district 1 and 2, and practice list methods with the first 5 schools in each list.
 
 
 ```python
@@ -233,13 +270,23 @@ print(district_2)
 
 
 ```python
-# Add list_2 to list_1 so that we have one big list
+# Add district_1 to district_2 so that we have one big list
+# Note that this will alter district_2!
 
-# Note that this alters list_1!
 
-print(len(district_1))
-district_1.extend(district_2)
-len(district_1)
+```
+
+
+```python
+#__SOLUTION__
+print(len(district_2))
+district_2.extend(district_1)
+len(district_2)
+```
+
+
+```python
+one_random_student(ds_west)
 ```
 
 
@@ -247,14 +294,15 @@ len(district_1)
 # What would this code return?
 
 district_1.append(district_2)
+district_1
 ```
 
 
 ```python
-# Let's write a loop that will build a list of the characters of the all of the letters in district_2
+# Let's build a list of the characters of the all of the letters in district_2
 
-school_salad = ''.join(district_2)
-school_salad
+school_names_joined = ''.join(district_2)
+school_names_joined
 
 
 ```
@@ -423,8 +471,6 @@ school_count = 0
 while school_count < 10:
     dist_4_schools = schools[4]
     
-    
-    
     if dist_4_schools[school_count][0] == 'B':
         break
         
@@ -545,6 +591,8 @@ district_schools(2)
 
 # Practice with nested dictionaries
 
+The object below is a dictionary with keys which represent a school district. The values associated with the keys are themselves dictionaries, whose keys are school names, and values are school populations.
+
 
 ```python
 with open('./data/nested_schools_dict.p', 'rb') as read_file:
@@ -579,6 +627,7 @@ for district in nested_schools_dict:
         if nested_schools_dict[district][school] < 500:
             low_pop_schools.append(school)
 
+print(low_pop_schools)
 ```
 
 # Pair Program: A full function
@@ -626,7 +675,8 @@ def low_pop_schools(district, schools=nested_schools_dict):
 
 ```
 
-## Exercises:
+## Practice Exercises:
+Here are a few exercises to do on your own time to practice building functions.
 
 1. Build a function that will take an input string and add '-totally' to the end of it.
 
