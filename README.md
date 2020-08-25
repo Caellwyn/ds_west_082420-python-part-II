@@ -179,14 +179,6 @@ Here are some useful methods for lists:
 - ```.index()```: returns (first) place in list where argument is found
 - ```.remove()```: removes element by value
 
-Question: What's the difference between ```.remove()``` and ```del```?
-
-<details>
-    <summary>
-        Answer here
-    </summary>
-    .remove() removes an element by value;<br/>
-    del removes an element by position
 
 Let's read in an object which contains Chicago Public School districts and the schools associated with them. 
 
